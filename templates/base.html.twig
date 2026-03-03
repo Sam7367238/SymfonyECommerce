@@ -20,6 +20,10 @@
             {% endif %}
 
             {% if app.user %}
+                {% if is_granted("ROLE_ADMIN") %}
+                    <a href="{{ path('admin_product_index') }}">Admin Dashboard</a>
+                {% endif %}
+
                 <a href="{{ logout_path() }}">Logout</a>
             {% endif %}
         </nav>

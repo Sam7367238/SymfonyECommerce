@@ -9,12 +9,17 @@
             <th>Name</th>
             <th>Image Path</th>
             <th>Price</th>
+            <th>Actions</th>
         </tr>
         {% for product in products %}
             <tr>
                 <th>{{ product.name }}</th>
                 <th>{{ product.imagePath }}</th>
                 <th>${{ product.price }}</th>
+                <th>
+                    <a href="{{ path('admin_product_edit', {id: product.id}) }}">Edit</a>
+                    <a href="{{ path('admin_product_edit', {id: product.id}) }}">Delete</a>
+                </th>
             </tr>
         {% endfor %}
     </table>
