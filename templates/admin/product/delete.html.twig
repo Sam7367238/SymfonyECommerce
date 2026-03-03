@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Manage Products{% endblock %}
+
+{% block body %}
+    <h1>Delete Product</h1>
+
+    <p>Are you sure you want to delete?</p>
+
+    <form method="post">
+        <a href="{{ path('admin_product_index') }}">Cancel</a>
+        <input type="submit" value="Confirm">
+    </form>
+{% endblock %}

@@ -18,7 +18,7 @@
                 <th>${{ product.price }}</th>
                 <th>
                     <a href="{{ path('admin_product_edit', {id: product.id}) }}">Edit</a>
-                    <a href="{{ path('admin_product_edit', {id: product.id}) }}">Delete</a>
+                    <a href="{{ path('admin_product_delete', {id: product.id}) }}">Delete</a>
                 </th>
             </tr>
         {% endfor %}

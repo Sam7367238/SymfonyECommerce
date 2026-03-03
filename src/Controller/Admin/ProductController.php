@@ -60,8 +60,8 @@ final class ProductController extends AbstractController
         return $this->render("admin/product/new.html.twig", compact("form"));
     }
 
-    #[Route("/edit/{id}", name: "edit")]
-    public function edit(Request $request, FileUploaderService $fileUploaderService, Product $product)
+    #[Route("/{id}/edit", name: "edit")]
+    public function edit(Request $request, FileUploaderService $fileUploaderService, Product $product): Response
     {
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
@@ -79,5 +79,18 @@ final class ProductController extends AbstractController
         }
 
         return $this->render("admin/product/edit.html.twig", compact("form"));
+    }
+
+    #[Route("/{id}/delete", name: "delete")]
+    public function delete(Request $request, Product $product): Response {
+        if ($request->isMethod("POST")) {
+            $this->entityManager->remove($product);
+            $this->entityManager->flush();
+
+            $this->addFlash("status", "Product Deleted Successfully");
+            return $this->redirectToRoute("admin_product_index");
+        }
+
+        return $this->render("admin/product/delete.html.twig", compact("product"));
     }
 }
