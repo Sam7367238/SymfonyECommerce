@@ -3,5 +3,23 @@
 {% block title %}Manage Products{% endblock %}
 
 {% block body %}
+    <a href="{{ path('admin_product_new') }}">New Product</a>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Image Path</th>
+            <th>Price</th>
+        </tr>
+        {% for product in products %}
+            <tr>
+                <th>{{ product.name }}</th>
+                <th>{{ product.imagePath }}</th>
+                <th>${{ product.price }}</th>
+            </tr>
+        {% endfor %}
+    </table>
 
+    <div>
+        {{ knp_pagination_render(products) }}
+    </div>
 {% endblock %}
