@@ -11,12 +11,18 @@
         {% endblock %}
     </head>
     <body>
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ logout_path() }}">Logout</a>
-            </div>
-        {% endif %}
+        <nav>
+            <a href="{{ path('app_home') }}">Home</a>
 
+            {% if not app.user %}
+                <a href="{{ path('app_register') }}">Register</a>
+                <a href="{{ path('app_login') }}">Log In</a>
+            {% endif %}
+
+            {% if app.user %}
+                <a href="{{ logout_path() }}">Logout</a>
+            {% endif %}
+        </nav>
         {% for message in app.flashes('status') %}
             <div>{{ message }}</div>
         {% endfor %}
