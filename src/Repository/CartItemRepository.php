@@ -16,6 +16,19 @@ class CartItemRepository extends ServiceEntityRepository
         parent::__construct($registry, CartItem::class);
     }
 
+    public function findByCartIdJoinedToProduct(int $cartId) {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            "SELECT ci, p
+             FROM App\Entity\CartItem ci
+             INNER JOIN ci.product p
+             WHERE ci.cart = :cartId"
+        )->setParameter("cartId", $cartId);
+
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return CartItem[] Returns an array of CartItem objects
 //     */
