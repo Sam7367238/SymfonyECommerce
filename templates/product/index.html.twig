@@ -8,7 +8,7 @@
     {% for product in products %}
         <div>
             <img src="{{ asset('images/' ~ product.imagePath) }}" alt="Product Image" width="50px">
-            <p>{{ product.name }}</p>
+            <a href="{{ path('product_show', {id: product.id}) }}">{{ product.name }}</a>
             <p>${{ product.price }}</p>
         </div>
     {% endfor %}

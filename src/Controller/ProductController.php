@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,5 +29,11 @@ final class ProductController extends AbstractController
         );
 
         return $this->render('product/index.html.twig', compact("products"));
+    }
+
+    #[Route("/{id}", name: "show")]
+    public function show(Product $product): Response
+    {
+        return $this->render("product/show.html.twig", compact("product"));
     }
 }

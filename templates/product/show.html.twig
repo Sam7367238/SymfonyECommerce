@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+    <h1>{{ product.name }}</h1>
+
+    <img src="{{ asset('images/' ~ product.imagePath) }}" alt="Product Image" width="150px">
+
+    <p>${{ product.price }}</p>
+
+{% endblock %}
