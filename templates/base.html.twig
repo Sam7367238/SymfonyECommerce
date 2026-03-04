@@ -8,6 +8,7 @@
         {% endblock %}
 
         {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
     <body>
@@ -24,6 +25,7 @@
                     <a href="{{ path('admin_product_index') }}">Admin Dashboard</a>
                 {% endif %}
 
+                <a href="{{ path('product_index') }}">Products</a>
                 <a href="{{ logout_path() }}">Logout</a>
             {% endif %}
         </nav>
