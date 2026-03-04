@@ -9,4 +9,9 @@
 
     <p>${{ product.price }}</p>
 
+    <form method="post" action="{{ path('cart_add', {id: product.id}) }}">
+        <input type="hidden" name="token" value="{{ csrf_token('product-add-to-cart-' ~ product.id) }}">
+        <input type="submit" value="Add To Cart">
+    </form>
+
 {% endblock %}

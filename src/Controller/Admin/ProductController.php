@@ -9,9 +9,11 @@ use App\Service\FileUploaderService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 
 #[Route("/admin/product", name: "admin_product_")]
 final class ProductController extends AbstractController
@@ -81,6 +83,7 @@ final class ProductController extends AbstractController
         return $this->render("admin/product/edit.html.twig", compact("form"));
     }
 
+    #[IsCsrfTokenValid(new Expression("'delete-product-' ~ args['product'].getId()"), tokenKey: "token", methods: ["DELETE"])]
     #[Route("/{id}/delete", name: "delete")]
     public function delete(Request $request, Product $product): Response {
         if ($request->isMethod("POST")) {
