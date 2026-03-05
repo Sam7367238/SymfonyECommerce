@@ -8,6 +8,7 @@ use App\Entity\Product;
 use App\Entity\User;
 use App\Repository\CartItemRepository;
 use App\Repository\CartRepository;
+use App\Service\CartFillingService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\ExpressionLanguage\Expression;
@@ -21,7 +22,8 @@ final class CartController extends AbstractController
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly CartItemRepository $cartItemRepository
+        private readonly CartItemRepository $cartItemRepository,
+        private readonly CartFillingService $cartFillingService
     )
     {
     }
@@ -39,13 +41,10 @@ final class CartController extends AbstractController
     #[Route('/product/{id}/cart', name: 'cart_add', methods: ["POST"])]
     public function addToCart(#[CurrentUser] User $user, Product $product): Response
     {
-        $cartItem = new CartItem();
-        $cartItem->setProduct($product);
+        $cart = $user->getCart();
+        $cartItems = $cart->getCartItems();
 
-        $user->getCart()->addCartItem($cartItem);
-
-        $this->entityManager->persist($cartItem);
-        $this->entityManager->flush();
+        $this->cartFillingService->addQuantityOrPersistCartItem($cart, $cartItems, $product);
 
         $this->addFlash("status", "Product Added To Cart");
         return $this->redirectToRoute("product_show", ["id" => $product->getId()]);
