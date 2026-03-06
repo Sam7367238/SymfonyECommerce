@@ -43,11 +43,19 @@ final class ProductController extends AbstractController
     public function new(Request $request, FileUploaderService $fileUploaderService): Response {
         $product = new Product();
 
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductType::class, $product, [
+            "image_required" => true
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get("imagePath")->getData();
+
+            if (!$file) {
+                $this->addFlash("status", "You're Not Slick, Buddy");
+                return $this->redirectToRoute("admin_product_new");
+            }
 
             $imageFileName = $fileUploaderService->upload($file);
             $product->setImagePath($imageFileName);
@@ -65,14 +73,19 @@ final class ProductController extends AbstractController
     #[Route("/{id}/edit", name: "edit")]
     public function edit(Request $request, FileUploaderService $fileUploaderService, Product $product): Response
     {
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductType::class, $product, [
+            "image_required" => false
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get("imagePath")->getData();
 
-            $imageFileName = $fileUploaderService->upload($file);
-            $product->setImagePath($imageFileName);
+            if ($file) {
+                $imageFileName = $fileUploaderService->upload($file);
+                $product->setImagePath($imageFileName);
+            }
 
             $this->entityManager->flush();
 

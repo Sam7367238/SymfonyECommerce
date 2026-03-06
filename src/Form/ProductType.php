@@ -19,7 +19,7 @@ class ProductType extends AbstractType
             ->add('price')
             ->add('imagePath', FileType::class, [
                 'mapped' => false,
-                'required' => true,
+                'required' => $options["image_required"],
                 "label" => "Image",
                 'constraints' => [
                     new File(
@@ -37,6 +37,7 @@ class ProductType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Product::class,
+            "image_required" => true
         ]);
     }
 }
