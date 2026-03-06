@@ -16,7 +16,7 @@ class CartItemRepository extends ServiceEntityRepository
         parent::__construct($registry, CartItem::class);
     }
 
-    public function findByCartIdJoinedToProduct(int $cartId)
+    public function findByCartIdJoinedToProduct(int $cartId): mixed
     {
         $entityManager = $this->getEntityManager();
 

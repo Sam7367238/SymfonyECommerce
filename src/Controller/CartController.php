@@ -26,7 +26,7 @@ final class CartController extends AbstractController
     }
 
     #[Route('/cart', name: 'index')]
-    public function index(#[CurrentUser] User $user)
+    public function index(#[CurrentUser] User $user): Response
     {
         $cart = $user->getCart();
         $cartItems = $this->cartItemRepository->findByCartIdJoinedToProduct($cart->getId());
