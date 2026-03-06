@@ -9,6 +9,11 @@
         <div>
             <h3>{{ cartItem.product.name }}</h3>
             <p>Quantity: {{ cartItem.quantity }}</p>
+
+            <form method="post" action="{{ path('cart_remove', {id: cartItem.id}) }}">
+                <input type="hidden" name="token" value="{{ csrf_token('cartItem-remove-' ~ cartItem.id) }}">
+                <input type="submit" value="Remove From Cart">
+            </form>
         </div>
     {% endfor %}
 {% endblock %}
