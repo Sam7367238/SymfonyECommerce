@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route("/product", name: "product_")]
+#[Route('/product', name: 'product_')]
 final class ProductController extends AbstractController
 {
     public function __construct(private readonly ProductRepository $repository)
@@ -24,16 +24,16 @@ final class ProductController extends AbstractController
 
         $products = $paginator->paginate(
             $query,
-            $request->query->getInt("page", 1),
+            $request->query->getInt('page', 1),
             15
         );
 
-        return $this->render('product/index.html.twig', compact("products"));
+        return $this->render('product/index.html.twig', compact('products'));
     }
 
-    #[Route("/{id}", name: "show")]
+    #[Route('/{id}', name: 'show')]
     public function show(Product $product): Response
     {
-        return $this->render("product/show.html.twig", compact("product"));
+        return $this->render('product/show.html.twig', compact('product'));
     }
 }

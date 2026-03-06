@@ -15,25 +15,26 @@ class AppFixtures extends Fixture
     {
     }
 
-    public function loadUsers(ObjectManager $manager): static {
+    public function loadUsers(ObjectManager $manager): static
+    {
         $cart = new Cart();
         $user = new User();
-        $user->setEmail("dummy@email.com");
+        $user->setEmail('dummy@email.com');
         $user->setPassword(
-            $this->passwordHasher->hashPassword($user, "DummyPassword")
+            $this->passwordHasher->hashPassword($user, 'DummyPassword')
         );
-        $user->setRoles(["ROLE_USER"]);
+        $user->setRoles(['ROLE_USER']);
         $cart->setUser($user);
         $manager->persist($user);
         $manager->persist($cart);
 
         $cart = new Cart();
         $user = new User();
-        $user->setEmail("admin@email.com");
+        $user->setEmail('admin@email.com');
         $user->setPassword(
-            $this->passwordHasher->hashPassword($user, "AdminPassword")
+            $this->passwordHasher->hashPassword($user, 'AdminPassword')
         );
-        $user->setRoles(["ROLE_ADMIN"]);
+        $user->setRoles(['ROLE_ADMIN']);
         $cart->setUser($user);
         $manager->persist($user);
         $manager->persist($cart);
@@ -41,11 +42,12 @@ class AppFixtures extends Fixture
         return $this;
     }
 
-    public function loadProducts(ObjectManager $manager): static {
-        for ($i = 0; $i < 10; $i++) {
+    public function loadProducts(ObjectManager $manager): static
+    {
+        for ($i = 0; $i < 10; ++$i) {
             $product = new Product();
             $product->setName("Product $i");
-            $product->setImagePath("None");
+            $product->setImagePath('None');
             $product->setPrice(10.00);
             $manager->persist($product);
         }

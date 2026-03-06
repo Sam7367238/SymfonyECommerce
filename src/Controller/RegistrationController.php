@@ -22,11 +22,11 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher,
         Security $security,
         EntityManagerInterface $entityManager,
-        #[CurrentUser] ?User $user
-    ): Response
-    {
+        #[CurrentUser] ?User $user,
+    ): Response {
         if ($user) {
-            $this->addFlash("status", "You Are Already Authenticated");
+            $this->addFlash('status', 'You Are Already Authenticated');
+
             return $this->redirectToRoute('app_home');
         }
 

@@ -13,11 +13,11 @@ final readonly class CartRemovalService
     }
 
     /**
-     * @param Cart $cart The cart to remove the cartItem from.
-     * @param CartItem $cartItem The cartItem to be wiped from the database.
+     * @param Cart     $cart     the cart to remove the cartItem from
+     * @param CartItem $cartItem the cartItem to be wiped from the database
      */
-    public function removeCartItem(Cart $cart, CartItem $cartItem): void {
-
+    public function removeCartItem(Cart $cart, CartItem $cartItem): void
+    {
         $cart->removeCartItem($cartItem);
 
         $this->entityManager->remove($cartItem);
@@ -29,16 +29,18 @@ final readonly class CartRemovalService
      * When the decrease quantity method returns false, it means there is only 1 quantity of that cartItem, in which case the removeCartItem method is called.
      * The parameters are a mix of both parameters required in the 2 methods to satisfy their requirements.
      */
-    public function decreaseQuantityOrRemoveCartItem(Cart $cart, CartItem $cartItem): void {
+    public function decreaseQuantityOrRemoveCartItem(Cart $cart, CartItem $cartItem): void
+    {
         if (!$this->decreaseQuantity($cartItem)) {
             $this->removeCartItem($cart, $cartItem);
         }
     }
 
     /**
-     * @return bool Returns true if there's more than 1 to decrease the quantity, returns false if there was only 1 product in the cart, which signals it should be removed from the cart.
+     * @return bool returns true if there's more than 1 to decrease the quantity, returns false if there was only 1 product in the cart, which signals it should be removed from the cart
      */
-    public function decreaseQuantity(CartItem $cartItem): bool {
+    public function decreaseQuantity(CartItem $cartItem): bool
+    {
         $quantity = $cartItem->getQuantity();
 
         if ($quantity >= 2) {

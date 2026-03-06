@@ -14,11 +14,11 @@ class SecurityController extends AbstractController
     #[Route(path: '/login', name: 'app_login')]
     public function login(
         AuthenticationUtils $authenticationUtils,
-        #[CurrentUser] ?User $user
-    ): Response
-    {
+        #[CurrentUser] ?User $user,
+    ): Response {
         if ($user) {
-            $this->addFlash("status", "You Are Already Authenticated");
+            $this->addFlash('status', 'You Are Already Authenticated');
+
             return $this->redirectToRoute('app_home');
         }
 
