@@ -1,28 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log In{% endblock %}
+{% block title %}Log In | Generic E-Commerce{% endblock %}
 
 {% block body %}
-    <form method="post">
-        {% if error %}
-            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-7 col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h1 class="h3 mb-4">Log In</h1>
 
-        <h1>Log In</h1>
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-        <label for="username">Email</label>
-        <input type="email" value="{{ last_username }}" name="_username" id="username" autocomplete="email" required autofocus>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Email</label>
+                            <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+                        </div>
 
-        <label for="password">Password</label>
-        <input type="password" name="_password" id="password" autocomplete="current-password" required>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+                        </div>
 
-        <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+                        <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
 
-        <div>
-            <input type="checkbox" name="_remember_me" id="_remember_me">
-            <label for="_remember_me">Remember me</label>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" name="_remember_me" id="_remember_me">
+                            <label class="form-check-label" for="_remember_me">Remember me</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Log In</button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <input type="submit" value="Log In">
-    </form>
+    </div>
 {% endblock %}

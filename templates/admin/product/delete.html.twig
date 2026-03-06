@@ -1,15 +1,22 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Manage Products{% endblock %}
+{% block title %}Delete Product | Generic E-Commerce{% endblock %}
 
 {% block body %}
-    <h1>Delete Product</h1>
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-6">
+            <div class="card border-danger shadow-sm">
+                <div class="card-body p-4">
+                    <h1 class="h3 text-danger mb-3">Delete Product</h1>
+                    <p class="mb-4">Are you sure you want to delete <strong>{{ product.name }}</strong>?</p>
 
-    <p>Are you sure you want to delete?</p>
-
-    <form method="post">
-        <a href="{{ path('admin_product_index') }}">Cancel</a>
-        <input type="hidden" name="token" value="{{ csrf_token('delete-product-' ~ product.id) }}">
-        <input type="submit" value="Confirm">
-    </form>
+                    <form method="post" class="d-flex gap-2">
+                        <input type="hidden" name="token" value="{{ csrf_token('delete-product-' ~ product.id) }}">
+                        <a href="{{ path('admin_product_index') }}" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-danger">Confirm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

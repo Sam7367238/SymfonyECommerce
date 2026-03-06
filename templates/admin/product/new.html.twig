@@ -1,9 +1,16 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Manage Products{% endblock %}
+{% block title %}New Product | Generic E-Commerce{% endblock %}
 
 {% block body %}
-    <h1>New Product</h1>
-
-    {{ form(form) }}
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h1 class="h3 mb-4">New Product</h1>
+                    {{ form(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

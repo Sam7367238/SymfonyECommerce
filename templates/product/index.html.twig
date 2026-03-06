@@ -1,17 +1,32 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Products{% endblock %}
+{% block title %}Products | Generic E-Commerce{% endblock %}
 
 {% block body %}
-    <h1>Products</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0">Products</h1>
+    </div>
 
-    {% for product in products %}
-        <div>
-            <img src="{{ asset('images/' ~ product.imagePath) }}" alt="Product Image" width="50px">
-            <a href="{{ path('product_show', {id: product.id}) }}">{{ product.name }}</a>
-            <p>${{ product.price }}</p>
+    {% if products|length > 0 %}
+        <div class="row g-4">
+            {% for product in products %}
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{{ asset('images/' ~ product.imagePath) }}" class="card-img-top" alt="{{ product.name }}" style="height: 220px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h2 class="h5 card-title">{{ product.name }}</h2>
+                            <p class="card-text fs-5 fw-semibold text-primary mb-4">${{ product.price|number_format(2, '.', ',') }}</p>
+                            <a href="{{ path('product_show', {id: product.id}) }}" class="btn btn-outline-primary mt-auto">View Product</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
 
-    {{ knp_pagination_render(products) }}
+        <div class="mt-4 d-flex justify-content-center">
+            {{ knp_pagination_render(products, "@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig") }}
+        </div>
+    {% else %}
+        <div class="alert alert-secondary mb-0">No products available yet.</div>
+    {% endif %}
 {% endblock %}

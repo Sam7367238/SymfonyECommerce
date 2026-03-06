@@ -1,19 +1,37 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Cart{% endblock %}
+{% block title %}Cart | Generic E-Commerce{% endblock %}
 
 {% block body %}
-    <h1>Cart</h1>
+    <h1 class="h3 mb-4">Your Cart</h1>
 
-    {% for cartItem in cartItems %}
-        <div>
-            <h3>{{ cartItem.product.name }}</h3>
-            <p>Quantity: {{ cartItem.quantity }}</p>
-
-            <form method="post" action="{{ path('cart_remove', {id: cartItem.id}) }}">
-                <input type="hidden" name="token" value="{{ csrf_token('cartItem-remove-' ~ cartItem.id) }}">
-                <input type="submit" value="Remove From Cart">
-            </form>
+    {% if cartItems|length > 0 %}
+        <div class="table-responsive bg-white border rounded shadow-sm">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cartItem in cartItems %}
+                        <tr>
+                            <td>{{ cartItem.product.name }}</td>
+                            <td>{{ cartItem.quantity }}</td>
+                            <td class="text-end">
+                                <form method="post" action="{{ path('cart_remove', {id: cartItem.id}) }}" class="d-inline">
+                                    <input type="hidden" name="token" value="{{ csrf_token('cartItem-remove-' ~ cartItem.id) }}">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-    {% endfor %}
+    {% else %}
+        <div class="alert alert-secondary">Your cart is empty.</div>
+    {% endif %}
 {% endblock %}
