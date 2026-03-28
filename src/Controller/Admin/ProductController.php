@@ -72,7 +72,7 @@ final class ProductController extends AbstractController
         return $this->render('admin/product/new.html.twig', compact('form'));
     }
 
-    #[Route('/{id}/edit', name: 'edit')]
+    #[Route('/{slug:product}/edit', name: 'edit')]
     public function edit(Request $request, FileUploaderService $fileUploaderService, Product $product): Response
     {
         $form = $this->createForm(ProductType::class, $product, [
@@ -100,7 +100,7 @@ final class ProductController extends AbstractController
     }
 
     #[IsCsrfTokenValid(new Expression("'delete-product-' ~ args['product'].getId()"), tokenKey: 'token', methods: ['DELETE'])]
-    #[Route('/{id}/delete', name: 'delete')]
+    #[Route('/{slug:product}/delete', name: 'delete')]
     public function delete(Request $request, Product $product): Response
     {
         if ($request->isMethod('POST')) {

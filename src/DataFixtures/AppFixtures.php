@@ -47,6 +47,7 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 10; ++$i) {
             $product = new Product();
             $product->setName("Product $i");
+            $product->setSlug("product-$i");
             $product->setImagePath('None');
             $product->setPrice(10.00);
             $manager->persist($product);

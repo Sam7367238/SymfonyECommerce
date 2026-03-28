@@ -48,7 +48,7 @@ final class CartController extends AbstractController
     }
 
     #[IsCsrfTokenValid(new Expression("'product-add-to-cart-' ~ args['product'].getId()"), tokenKey: 'token')]
-    #[Route('/product/{id}/cart', name: 'add', methods: ['POST'])]
+    #[Route('/product/{slug:product}/cart', name: 'add', methods: ['POST'])]
     public function addToCart(#[CurrentUser] User $user, Product $product): Response
     {
         $cart = $user->getCart();
@@ -58,6 +58,6 @@ final class CartController extends AbstractController
 
         $this->addFlash('status', 'Product Added To Cart');
 
-        return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+        return $this->redirectToRoute('product_show', ['slug' => $product->getSlug()]);
     }
 }

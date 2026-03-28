@@ -26,8 +26,8 @@
                             <td><code>{{ product.imagePath }}</code></td>
                             <td>${{ product.price|number_format(2, '.', ',') }}</td>
                             <td class="text-end">
-                                <a href="{{ path('admin_product_edit', {id: product.id}) }}" class="btn btn-sm btn-outline-primary">Edit</a>
-                                <a href="{{ path('admin_product_delete', {id: product.id}) }}" class="btn btn-sm btn-outline-danger">Delete</a>
+                                <a href="{{ path('admin_product_edit', {slug: product.slug}) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+                                <a href="{{ path('admin_product_delete', {slug: product.slug}) }}" class="btn btn-sm btn-outline-danger">Delete</a>
                             </td>
                         </tr>
                     {% endfor %}
