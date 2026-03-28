@@ -11,5 +11,10 @@ Project
 
 This is a basic E-Commerce website where an admin can manage products, and users can add or remove items in their cart.
 
+Notes
+------------
+
+- I'll add a checkout system (with payments) if we get 25 stars.
+
 [1]: https://symfony.com
 [2]: https://symfony.com/projects
